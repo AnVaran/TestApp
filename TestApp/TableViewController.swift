@@ -12,8 +12,9 @@ class TableViewController: UITableViewController {
 
     private let url = "https://junior.balinasoft.com/api/v2/photo/type"
     private let postUrl = "https://junior.balinasoft.com/api/v2/photo"
-    private var words = Model()
-    private var image: UIImage?  //UIImage(named: "image")
+    private var words = [Words]()
+    private var image: UIImage? //UIImage(named: "image")
+    private var bufer = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,18 @@ class TableViewController: UITableViewController {
         fetchData()
     }
     
+//    private func fetchData() {
+//
+//        DataManager.fetchData(url: url, page: 0) { (words) in
+//            self.words = words
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
+//    }
+
     private func fetchData() {
-        
-        DataManager.fetchData(url: url) { (words) in
+        DataManager.fetchData(url: url, page: 0) { (words) in
             self.words = words
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -48,6 +58,30 @@ class TableViewController: UITableViewController {
         
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         let currentOffset = scrollView.contentOffset.y
+               let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+               let deltaOffset = maximumOffset - currentOffset
+               
+               if deltaOffset <= 0 {
+                   loadMore()
+               }
+    }
+
+    
+    func loadMore() {
+        
+        DataManager.fetchData(url: url, page: bufer) { (words) in
+           let uploudedwords = words
+           DispatchQueue.main.async {
+               self.tableView.reloadData()
+           }
+        
+           self.words += uploudedwords
+           self.bufer += 1
+        }
+    }
+    
     
 
     // MARK: - Table view data source
@@ -59,18 +93,21 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return words.content?.count ?? 0
+        return words.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
-        let words = self.words.content?[indexPath.row]
+        let word = self.words[indexPath.row]
 
-        cell.label.text = words?.name
-
+        cell.label.text = word.name
+            
         return cell
+
+        
     }
     
     
@@ -80,11 +117,11 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let words = self.words.content?[indexPath.row]
+        let words = self.words[indexPath.row]
         
         camera()
         //PostRequest.postRequest(url: postUrl, id: (words?.id)!, name: (words?.name)!, image: image!)
-        PostRequest.artPost(url: postUrl, id: (words?.id)!, name: (words?.name)!, image: image)
+        PostRequest.artPost(url: postUrl, id: words.id!, name: words.name!, image: image)
     }
 
 }

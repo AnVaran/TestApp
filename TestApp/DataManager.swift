@@ -8,23 +8,57 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class DataManager {
 
-    static func fetchData(url: String, completion: @escaping (_ words: Model)->()) {
+    static func fetchData(url: String, page: Int, completion: @escaping (_ words: [Words])->()) {
         
         guard let url = URL(string: url) else { return }
     
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
+//        URLSession.shared.dataTask(with: url) { (data, _, _) in
+//
+//            guard let data = data else { return }
+//
+//            do {
+//                let words = try JSONDecoder().decode(Model.self, from: data)
+//                completion(words)
+//                print(words)
+//            } catch let error{
+//                print("Error with json", error)
+//            }
+//        }.resume()
         
-            guard let data = data else { return }
+        let parameter = ["page" : page] as [String: Int]
         
-            do {
-                let words = try JSONDecoder().decode(Model.self, from: data)
+        AF.request(url, method: .get, parameters: parameter).responseJSON { (response) in
+            
+            //print(response.result)
+            
+            switch response.result {
+                
+            case .success(let value):
+                
+                guard let arrayOfItems = value as? [String : Any] else { return }
+                
+                guard let array = arrayOfItems["content"] as? Array<[String : Any]> else { return }
+                
+                var words = [Words]()
+                
+                
+                for field in array {
+
+                    let word = Words(id: field["id"] as? Int,
+                                     name: field["name"] as? String)
+
+                    words.append(word)
+                }
+                
                 completion(words)
-            } catch let error{
-                print("Error with json", error)
+                
+            case .failure(let error):
+                print(error)
             }
-        }.resume()
+        }
     }
 }

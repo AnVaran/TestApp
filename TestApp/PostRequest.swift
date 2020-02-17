@@ -52,24 +52,23 @@ class PostRequest {
         
         guard let serviceUrl = URL(string: url) else { return }
   
-        let parameterDictionary = ["typeId" : id, "name" : name] as [String : Any]
-        
-        AF.request(serviceUrl, method: .post, parameters: parameterDictionary).response { (response) in
-
-            print(response)
-        }
+        let parameterDictionary = ["typeId" : String(id), "name" : name] as [String : Any]
         
         guard let image = image else { return }
-        
-        guard let data = image.pngData() else { return }
+        let imageJPEGFormat: Data? = image.jpegData(compressionQuality: 0.3)
+        guard let imageData = imageJPEGFormat else { return }
         
         AF.upload(multipartFormData: { (multipartFormData) in
             
-            multipartFormData.append(data, withName: "photo")
+            multipartFormData.append(imageData, withName: "photo", fileName: "photo/jpg", mimeType: "photo/jpg")
             
-        }, to: serviceUrl).response { (response) in
-            
-            print(response)
+            for (key, value) in parameterDictionary {
+                
+                multipartFormData.append((value as! String).data(using: .utf8)!, withName: key)
+            }
+        }, to: serviceUrl).responseJSON { (json) in
+
+            print(json)
         }
         
     }
