@@ -10,8 +10,7 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
-    private let url = "https://junior.balinasoft.com/api/v2/photo/type"
-    private let postUrl = "https://junior.balinasoft.com/api/v2/photo"
+    
     private var words = [Words]()
     private var image: UIImage? //UIImage(named: "image")
     private var bufer = 1
@@ -33,7 +32,7 @@ class TableViewController: UITableViewController {
 //    }
 
     private func fetchData() {
-        DataManager.fetchData(url: url, page: 0) { (words) in
+        DataManager.fetchData(page: 0) { (words) in
             self.words = words
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -59,29 +58,23 @@ class TableViewController: UITableViewController {
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-         let currentOffset = scrollView.contentOffset.y
-               let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-               let deltaOffset = maximumOffset - currentOffset
+        
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset + 100
                
-               if deltaOffset <= 0 {
-                   loadMore()
-               }
-    }
-
-    
-    func loadMore() {
-        
-        DataManager.fetchData(url: url, page: bufer) { (words) in
-           let uploudedwords = words
-           DispatchQueue.main.async {
-               self.tableView.reloadData()
-           }
-        
-           self.words += uploudedwords
-           self.bufer += 1
+        if deltaOffset <= 0 {
+            DataManager.fetchData(page: bufer) { (words) in
+                let uploudedwords = words
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                   
+                self.words += uploudedwords
+                self.bufer += 1
+            }
         }
     }
-    
     
 
     // MARK: - Table view data source
@@ -121,7 +114,7 @@ class TableViewController: UITableViewController {
         
         camera()
         //PostRequest.postRequest(url: postUrl, id: (words?.id)!, name: (words?.name)!, image: image!)
-        PostRequest.artPost(url: postUrl, id: words.id!, name: words.name!, image: image)
+        DataManager.artPost(id: words.id!, name: words.name!, image: image)
     }
 
 }

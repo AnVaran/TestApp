@@ -17,9 +17,8 @@
 		84055B7C23F5AD6D0066FB97 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84055B7B23F5AD6D0066FB97 /* TableViewCell.swift */; };
 		84055B7E23F5B6FF0066FB97 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84055B7D23F5B6FF0066FB97 /* Model.swift */; };
 		84055B8023F5BB0A0066FB97 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84055B7F23F5BB0A0066FB97 /* DataManager.swift */; };
-		84055B8223F5C71A0066FB97 /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84055B8123F5C71A0066FB97 /* PostRequest.swift */; };
 		847EEFC023F9A9C500801E73 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847EEFBB23F9A79D00801E73 /* Alamofire.framework */; };
-		847EEFC523F9A9DA00801E73 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		847EEFC523F9A9DA00801E73 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +28,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				847EEFC523F9A9DA00801E73 /* BuildFile in Embed Frameworks */,
+				847EEFC523F9A9DA00801E73 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,7 +49,6 @@
 		84055B7B23F5AD6D0066FB97 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		84055B7D23F5B6FF0066FB97 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		84055B7F23F5BB0A0066FB97 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		84055B8123F5C71A0066FB97 /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		847EEFB123F9A65F00801E73 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		847EEFBB23F9A79D00801E73 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CE2DC9DE100AA283958E95A /* Pods-TestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp.release.xcconfig"; path = "Target Support Files/Pods-TestApp/Pods-TestApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				84055B7B23F5AD6D0066FB97 /* TableViewCell.swift */,
 				84055B7D23F5B6FF0066FB97 /* Model.swift */,
 				84055B7F23F5BB0A0066FB97 /* DataManager.swift */,
-				84055B8123F5C71A0066FB97 /* PostRequest.swift */,
 				84055B6B23F5AB520066FB97 /* Main.storyboard */,
 				84055B6E23F5AB530066FB97 /* Assets.xcassets */,
 				84055B7023F5AB530066FB97 /* LaunchScreen.storyboard */,
@@ -242,7 +239,6 @@
 			files = (
 				84055B7E23F5B6FF0066FB97 /* Model.swift in Sources */,
 				84055B8023F5BB0A0066FB97 /* DataManager.swift in Sources */,
-				84055B8223F5C71A0066FB97 /* PostRequest.swift in Sources */,
 				84055B6623F5AB520066FB97 /* AppDelegate.swift in Sources */,
 				84055B7C23F5AD6D0066FB97 /* TableViewCell.swift in Sources */,
 				84055B7A23F5AC1C0066FB97 /* TableViewController.swift in Sources */,
@@ -394,6 +390,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59F4BVAUWF;
 				INFOPLIST_FILE = TestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -413,6 +410,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59F4BVAUWF;
 				INFOPLIST_FILE = TestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
