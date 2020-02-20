@@ -59,18 +59,18 @@ class TableViewController: UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let deltaOffset = maximumOffset - currentOffset + 100
+        let currentOffset = scrollView.contentOffset.y 
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height - 100
+        let deltaOffset = maximumOffset - currentOffset
                
         if deltaOffset <= 0 {
             DataManager.fetchData(page: bufer) { (words) in
-                let uploudedwords = words
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                    
-                self.words += uploudedwords
+                self.words += words
                 self.bufer += 1
             }
         }
